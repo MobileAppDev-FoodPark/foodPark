@@ -1,10 +1,7 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
 
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:foodspark/Businesspages/controllers/comman_dailog.dart';
 import 'package:foodspark/Businesspages/views/home_screen.dart';
 import 'package:get/get.dart';
@@ -12,7 +9,8 @@ import 'package:get/get.dart';
 class AuthController extends GetxController {
   final firebaseInstance = FirebaseFirestore.instance;
 
-  String? ownerId;
+  // ignore: prefer_typing_uninitialized_variables
+  var ownerId;
 
   Future<void> signUp(email, password, username, address) async {
     try {
@@ -91,39 +89,6 @@ class AuthController extends GetxController {
 
         print('Wrong password provided for that user.');
       }
-    }
-  }
-
-  Future<void> addstall(Map stalldata, File image) async {
-    var pathimage = image.toString();
-    var temp = pathimage.lastIndexOf('/');
-    var result = pathimage.substring(temp + 1);
-    print(result);
-    final ref =
-        FirebaseStorage.instance.ref().child('product_images').child(result);
-    var response = await ref.putFile(image);
-    print("Updated $response");
-    var imageUrl = await ref.getDownloadURL();
-
-    try {
-      CommanDialog.showLoading();
-      var response = await firebaseInstance
-          .collection('owner_list')
-          .doc(ownerId)
-          .collection('stall')
-          .add({
-        'name': stalldata['name'],
-        'address': stalldata['address'],
-        "upload_date": stalldata['upload_date'],
-        'stall_image': imageUrl,
-        "email": stalldata['email'],
-      });
-      print("Firebase response1111 $response");
-      CommanDialog.hideLoading();
-      Get.back();
-    } catch (exception) {
-      CommanDialog.hideLoading();
-      print("Error Saving Data at firestore $exception");
     }
   }
 }

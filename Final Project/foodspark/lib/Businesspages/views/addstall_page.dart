@@ -1,9 +1,9 @@
-// ignore_for_file: avoid_print, prefer_const_constructors
+// ignore_for_file: avoid_print, prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:foodspark/Businesspages/controllers/aut_controller.dart';
+import 'package:foodspark/Businesspages/controllers/data_controller.dart';
 import 'package:foodspark/Businesspages/views/stall_images.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +15,7 @@ class Addstall extends StatefulWidget {
 }
 
 class _AddstallState extends State<Addstall> {
-  AuthController controller = Get.find();
+  DataController controller = Get.find();
 
   var _ownerImageFile;
 
@@ -24,7 +24,7 @@ class _AddstallState extends State<Addstall> {
     "name": "",
     "address": "",
     "upload_date": DateTime.now().millisecondsSinceEpoch,
-    "email": ""
+    "phone": ""
   };
 
   void _pickedImage(File image) {
@@ -95,7 +95,7 @@ class _AddstallState extends State<Addstall> {
                 },
               ),
               TextFormField(
-                keyboardType: TextInputType.number,
+                keyboardType: TextInputType.text,
                 decoration: InputDecoration(labelText: 'Address'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -109,15 +109,15 @@ class _AddstallState extends State<Addstall> {
               ),
               TextFormField(
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: InputDecoration(labelText: 'Phone'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Email  Required';
+                    return 'Phone  Required';
                   }
                   return null;
                 },
                 onSaved: (value) {
-                  stallData['email'] = value!;
+                  stallData['phone'] = value!;
                 },
               ),
               SizedBox(

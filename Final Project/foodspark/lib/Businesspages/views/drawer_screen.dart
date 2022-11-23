@@ -1,13 +1,12 @@
-// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
 import 'package:foodspark/Businesspages/controllers/data_controller.dart';
+import 'package:foodspark/Businesspages/views/stall_view.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class AppDrawer extends StatelessWidget {
-  AppDrawer({super.key});
-
   final DataController controller = Get.find();
 
   @override
@@ -52,7 +51,10 @@ class AppDrawer extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.store),
                 title: const Text('Your Stall'),
-                onTap: () {},
+                onTap: () {
+                  Get.back();
+                  Get.to(() => Stallview());
+                },
               ),
               ListTile(
                 leading: Icon(Icons.logout),
