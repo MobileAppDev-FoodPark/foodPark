@@ -27,7 +27,7 @@ class AuthController extends GetxController {
         CommanDialog.showLoading();
         var response =
             await FirebaseFirestore.instance.collection('owner_list').add({
-          'owner_Id': userCredential.user!.uid,
+          'user_Id': userCredential.user!.uid,
           'user_name': username,
           'address': address,
           "password": password,

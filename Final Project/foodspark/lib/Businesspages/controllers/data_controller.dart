@@ -30,7 +30,7 @@ class DataController extends GetxController {
     try {
       var response = await FirebaseFirestore.instance
           .collection('owner_list')
-          .where('owner_Id', isEqualTo: authController.ownerId)
+          .where('user_Id', isEqualTo: authController.ownerId)
           .get();
       // response.docs.forEach((result) {
       //   print(result.data());
@@ -73,7 +73,7 @@ class DataController extends GetxController {
         'address': stalldata['address'],
         "upload_date": stalldata['upload_date'],
         'stall_image': imageUrl,
-        'owner_Id': authController.ownerId,
+        'user_Id': authController.ownerId,
       });
       print("Firebase response1111 $response");
       CommanDialog.hideLoading();
@@ -94,7 +94,7 @@ class DataController extends GetxController {
       final List<Stall> lodadedProduct = [];
       var response = await firebaseInstance
           .collection('product_list')
-          .where('owner_Id', isEqualTo: authController.ownerId)
+          .where('user_Id', isEqualTo: authController.ownerId)
           .get();
 
       if (response.docs.isNotEmpty) {
@@ -104,7 +104,7 @@ class DataController extends GetxController {
           lodadedProduct.add(
             Stall(
                 stallId: result.id,
-                ownerId: result['owner_Id'],
+                ownerId: result['user_Id'],
                 stallname: result['name'],
                 stallimage: result['stallimage'],
                 stalladdress: result['address'],
@@ -142,7 +142,7 @@ class DataController extends GetxController {
           lodadedProduct1.add(
             Stall(
                 stallId: result.id,
-                ownerId: result['owner_Id'],
+                ownerId: result['user_Id'],
                 stallname: result['name'],
                 stalladdress: result['address'],
                 stallimage: result['stallimage'],
