@@ -17,7 +17,7 @@ class DataController extends GetxController {
 
   List<Stall> allProduct = [];
 
-  AuthController authController = AuthController();
+  AuthController authController = Get.find();
 
   @override //add override
   void onReady() {
@@ -69,11 +69,11 @@ class DataController extends GetxController {
       CommanDialog.showLoading();
       var response = await firebaseInstance.collection('product_list').add({
         'name': stalldata['name'],
-        'phone': stalldata['phone'],
         'address': stalldata['address'],
         "upload_date": stalldata['upload_date'],
         'stall_image': imageUrl,
         'user_Id': authController.ownerId,
+        'phone': stalldata['phone'],
       });
       print("Firebase response1111 $response");
       CommanDialog.hideLoading();
@@ -103,13 +103,14 @@ class DataController extends GetxController {
           print("Product ID  ${result.id}");
           lodadedProduct.add(
             Stall(
-                stallId: result.id,
-                ownerId: result['user_Id'],
-                stallname: result['name'],
-                stallimage: result['stallimage'],
-                stalladdress: result['address'],
-                phone: int.parse(result['phone']),
-                stalluploaddate: result['upload_date'].toString()),
+              stallId: result.id,
+              stallname: result['name'],
+              stallimage: result['stallimage'],
+              stalladdress: result['address'],
+              phone: int.parse(result['phone']),
+              stalluploaddate: result['upload_date'].toString(),
+              ownerId: result['user_Id'],
+            ),
           );
         }
       }
@@ -141,13 +142,14 @@ class DataController extends GetxController {
           print(result.id);
           lodadedProduct1.add(
             Stall(
-                stallId: result.id,
-                ownerId: result['user_Id'],
-                stallname: result['name'],
-                stalladdress: result['address'],
-                stallimage: result['stallimage'],
-                phone: int.parse(result['phone']),
-                stalluploaddate: result['upload_date'].toString()),
+              stallId: result.id,
+              stallname: result['name'],
+              stalladdress: result['address'],
+              stallimage: result['stallimage'],
+              phone: int.parse(result['phone']),
+              stalluploaddate: result['upload_date'].toString(),
+              ownerId: result['user_Id'],
+            ),
           );
         }
         allProduct.addAll(lodadedProduct1);
