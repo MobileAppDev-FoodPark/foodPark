@@ -74,13 +74,6 @@ class _DrawerPageState extends State<DrawerPage> {
           runSpacing: 25,
           children: [
             ListTile(
-                leading: const Icon(Icons.home_outlined),
-                title: const Text('Home'),
-                onTap: () =>
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ))),
-            ListTile(
               leading: const Icon(Icons.person),
               title: const Text('Profile'),
               onTap: () {},
