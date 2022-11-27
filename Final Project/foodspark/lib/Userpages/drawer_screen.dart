@@ -1,41 +1,34 @@
-// ignore_for_file: unnecessary_this, prefer_const_constructors, use_build_context_synchronously, non_constant_identifier_names, library_private_types_in_public_api
+// ignore_for_file: sized_box_for_whitespace, prefer_const_literals_to_create_immutables, prefer_const_constructors, use_key_in_widget_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foodspark/Userpages/views/login_page.dart';
-import 'package:foodspark/models/owner_model.dart';
+import 'package:foodspark/Userpages/home_page.dart';
+import 'package:foodspark/Userpages/login_page.dart';
+import 'package:foodspark/models/user_model.dart';
 
-class BusinessHome extends StatelessWidget {
-  const BusinessHome({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
-
-// ignore: must_be_immutable
 class DrawerPage extends StatefulWidget {
   const DrawerPage({super.key});
 
   @override
+// ignore: library_private_types_in_public_api
   _DrawerPageState createState() => _DrawerPageState();
 }
 
 class _DrawerPageState extends State<DrawerPage> {
   User? user = FirebaseAuth.instance.currentUser;
-  OwnerModel loggedInUser = OwnerModel();
+  UserModel loggedInUser = UserModel();
 
   @override
   void initState() {
     super.initState();
     FirebaseFirestore.instance
-        .collection("owners")
+        .collection("users")
         .doc(user!.uid)
         .get()
         .then((value) {
-      this.loggedInUser = OwnerModel.fromMap(value.data());
+      // ignore: unnecessary_this
+      this.loggedInUser = UserModel.fromMap(value.data());
       setState(() {});
     });
   }
@@ -52,7 +45,6 @@ class _DrawerPageState extends State<DrawerPage> {
         ),
       );
 
-//header
   Widget buildHeader(BuildContext context) => Container(
         color: Colors.cyan,
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -68,7 +60,6 @@ class _DrawerPageState extends State<DrawerPage> {
               height: 12,
             ),
             Text('${loggedInUser.username}'),
-            Text('${loggedInUser.address}'),
             Text('${loggedInUser.email}'),
             SizedBox(
               height: 12,
@@ -76,7 +67,7 @@ class _DrawerPageState extends State<DrawerPage> {
           ],
         ),
       );
-//Items
+
   Widget buildMenuItems(BuildContext context) => Container(
         padding: const EdgeInsets.all(15),
         child: Wrap(
@@ -87,11 +78,11 @@ class _DrawerPageState extends State<DrawerPage> {
                 title: const Text('Home'),
                 onTap: () =>
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const BusinessHome(),
+                      builder: (context) => HomeScreen(),
                     ))),
             ListTile(
-              leading: const Icon(Icons.store),
-              title: const Text('Stalls'),
+              leading: const Icon(Icons.person),
+              title: const Text('Profile'),
               onTap: () {},
             ),
             const Divider(
@@ -115,6 +106,7 @@ class _DrawerPageState extends State<DrawerPage> {
 
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
+    // ignore: use_build_context_synchronously
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => const LoginPage()));
   }

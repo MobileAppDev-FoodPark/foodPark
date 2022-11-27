@@ -42,11 +42,11 @@ class Stallview extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
-                                "Product Name: ${controller.loginUserData[index].stallname}",
+                                "Stall Name: ${controller.loginUserData[index].stallname}",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                'Price: ${controller.loginUserData[index].phone.toString()}',
+                                'Phone Number: ${controller.loginUserData[index].phone.toString()}',
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ],

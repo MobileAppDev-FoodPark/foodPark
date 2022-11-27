@@ -3,8 +3,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:foodspark/Userpages/views/user_homepage.dart';
-import 'package:foodspark/Userpages/views/user_registration.dart';
+import 'package:foodspark/Userpages/main_page.dart';
+import 'package:foodspark/Userpages/user_registration.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -142,86 +142,70 @@ class _LoginPageState extends State<LoginPage> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.grey[350],
-      body: Center(
-        child: SingleChildScrollView(
-          child: Container(
-            color: Colors.grey[350],
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    //SizedBox()),
-                    SizedBox(height: 10),
-                    text1Field,
-                    SizedBox(height: 10),
-                    textField,
-                    SizedBox(height: 50),
-                    emailField,
-                    SizedBox(height: 25),
-                    passwordField,
-                    SizedBox(height: 25),
-                    loginButton,
-                    SizedBox(height: 15),
-                    SizedBox(height: 50),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Don't have an account? ",
-                            style: TextStyle(fontSize: 17),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignupView(
-                                            title: '',
-                                          )));
-                            },
-                            child: Text(
-                              "SignUp",
-                              style: TextStyle(
-                                  color: Colors.redAccent,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17),
-                            ),
-                          )
-                        ]),
-                    SizedBox(height: 20),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text("Do you have business account? ",
-                              style: TextStyle(fontSize: 17)),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignupView(
-                                            title: '',
-                                          )));
-                            },
-                            child: Text(
-                              "Signup Here",
-                              style: TextStyle(
-                                  color: Colors.redAccent,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17),
-                            ),
-                          )
-                        ])
-                  ],
+      body: Container(
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Opacity(
+                opacity: 1,
+                child: Image.asset('images/loginbg.png', fit: BoxFit.cover),
+              ),
+            ),
+            Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        //SizedBox()),
+                        SizedBox(height: 10),
+                        text1Field,
+                        SizedBox(height: 10),
+                        textField,
+                        SizedBox(height: 50),
+                        emailField,
+                        SizedBox(height: 25),
+                        passwordField,
+                        SizedBox(height: 25),
+                        loginButton,
+                        SizedBox(height: 15),
+                        SizedBox(height: 50),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                "Don't have an account? ",
+                                style: TextStyle(fontSize: 17),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SignupView(
+                                                title: '',
+                                              )));
+                                },
+                                child: Text(
+                                  "SignUp",
+                                  style: TextStyle(
+                                      color: Colors.redAccent,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17),
+                                ),
+                              )
+                            ]),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -236,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
             .then((uid) => {
                   Fluttertoast.showToast(msg: "Login Successful"),
                   Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => HomeScreen())),
+                      MaterialPageRoute(builder: (context) => MainPage())),
                 });
       } on FirebaseAuthException catch (error) {
         switch (error.code) {

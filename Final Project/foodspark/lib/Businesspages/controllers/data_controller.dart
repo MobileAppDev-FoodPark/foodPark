@@ -3,7 +3,7 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:foodspark/Businesspages/controllers/aut_controller.dart';
-import 'package:foodspark/Businesspages/models/stall.dart';
+import 'package:foodspark/models/stall_model.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -22,9 +22,11 @@ class DataController extends GetxController {
   @override //add override
   void onReady() {
     super.onReady();
-
+    // getAllProduct();
     getUserProfileData();
   }
+
+  // displaying user info in drawer
 
   Future<void> getUserProfileData() async {
     try {
@@ -37,22 +39,23 @@ class DataController extends GetxController {
       // });
 
       if (response.docs.length > 0) {
+        print(response.docs[0].data());
         userProfileData['userName'] = response.docs[0]['user_name'];
         userProfileData['email'] = response.docs[0]['email'];
         userProfileData['joinDate'] = response.docs[0]['joinDate'];
         userProfileData['address'] = response.docs[0]['address'];
-        userProfileData['Phone'] = response.docs[0]['Phone'];
-        userProfileData['image'] = response.docs[0]['imageUrl'];
+        //NO PHONE AND IMAGE RETURN
+        //userProfileData['Phone'] = response.docs[0]['Phone'];
+        //userProfileData['image'] = response.docs[0]['imageUrl'];
       }
-      print(userProfileData);
     } on FirebaseException catch (e) {
-      print(e);
+      print("$e");
     } catch (error) {
-      print(error);
+      print("$error");
     }
   }
 
-  //add stall
+  //add stall function
 
   Future<void> addstall(Map stalldata, File image) async {
     var pathimage = image.toString();
@@ -84,6 +87,8 @@ class DataController extends GetxController {
     }
   }
 
+  //manage stall function
+
   Future<void> userStall() async {
     print("loginUserData YEs $loginUserData");
 
@@ -105,7 +110,7 @@ class DataController extends GetxController {
             Stall(
               stallId: result.id,
               stallname: result['name'],
-              stallimage: result['stallimage'],
+              stallimage: result['stall_image'],
               stalladdress: result['address'],
               phone: int.parse(result['phone']),
               stalluploaddate: result['upload_date'].toString(),
@@ -126,33 +131,37 @@ class DataController extends GetxController {
     }
   }
 
-  Future<void> getAllProduct() async {
+  //displaying stall in homescreen
+
+  /*Future<void> getAllProduct() async {
+    print("All Product : $allProduct");
+
     allProduct = [];
 
     try {
       CommanDialog.showLoading();
-      final List<Stall> lodadedProduct1 = [];
+      final List<Stall> lodadedProduct = [];
       var response = await firebaseInstance
-          .collection('productlist')
+          .collection('product_list')
           .where('user_Id', isNotEqualTo: authController.ownerId)
           .get();
       if (response.docs.length > 0) {
         for (var result in response.docs) {
           print(result.data());
           print(result.id);
-          lodadedProduct1.add(
+          lodadedProduct.add(
             Stall(
               stallId: result.id,
               stallname: result['name'],
               stalladdress: result['address'],
-              stallimage: result['stallimage'],
+              stallimage: result['stall_image'],
               phone: int.parse(result['phone']),
               stalluploaddate: result['upload_date'].toString(),
               ownerId: result['user_Id'],
             ),
           );
         }
-        allProduct.addAll(lodadedProduct1);
+        allProduct.addAll(lodadedProduct);
         update();
       }
 
@@ -164,5 +173,5 @@ class DataController extends GetxController {
       CommanDialog.hideLoading();
       print("error $error");
     }
-  }
+  }*/
 }
