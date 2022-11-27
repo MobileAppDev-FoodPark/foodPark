@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            'FOOD STALLS',
+            'FOOD PARKS',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.cyanAccent,
