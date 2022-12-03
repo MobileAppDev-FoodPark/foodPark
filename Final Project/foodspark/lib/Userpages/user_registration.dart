@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:foodspark/Userpages/views/login_page.dart';
-import 'package:foodspark/Userpages/models/user_model.dart';
+import 'package:foodspark/Userpages/login_page.dart';
+import 'package:foodspark/models/user_model.dart';
 
 class SignupView extends StatefulWidget {
   const SignupView({super.key, required String title});
@@ -201,50 +201,45 @@ class _SignupViewState extends State<SignupView> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.grey[350],
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.red),
-          onPressed: () {
-            // passing this to our root
-            Navigator.of(context).pop();
-          },
-        ),
-      ),
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Container(
-              color: Colors.grey[350],
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: 5),
-                      textField,
-                      SizedBox(height: 35),
-                      usernameField,
-                      SizedBox(height: 25),
-                      emailField,
-                      SizedBox(height: 25),
-                      passwordField,
-                      SizedBox(height: 25),
-                      confirmPasswordField,
-                      SizedBox(height: 20),
-                      signUpButton,
-                      SizedBox(height: 15),
-                    ],
+      body: Container(
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: Opacity(
+                opacity: 1,
+                child: Image.asset('images/loginbg.png', fit: BoxFit.cover),
+              ),
+            ),
+            Center(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(height: 5),
+                        textField,
+                        SizedBox(height: 35),
+                        usernameField,
+                        SizedBox(height: 25),
+                        emailField,
+                        SizedBox(height: 25),
+                        passwordField,
+                        SizedBox(height: 25),
+                        confirmPasswordField,
+                        SizedBox(height: 20),
+                        signUpButton,
+                        SizedBox(height: 15),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

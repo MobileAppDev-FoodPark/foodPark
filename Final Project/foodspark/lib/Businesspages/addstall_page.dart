@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:foodspark/Businesspages/controllers/data_controller.dart';
-import 'package:foodspark/Businesspages/views/stall_images.dart';
+import 'package:foodspark/Businesspages/stall_images.dart';
 import 'package:get/get.dart';
 
 class Addstall extends StatefulWidget {
