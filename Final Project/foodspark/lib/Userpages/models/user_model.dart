@@ -17,7 +17,6 @@ class UserModel {
     );
   }
 
-  get address => null;
   //sending data to our server
   Map<String, dynamic> toMap() {
     return {

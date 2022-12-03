@@ -1,8 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print, prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:foodspark/Businesspages/controllers/aut_controller.dart';
 import 'package:get/get.dart';
-import '../controllers/aut_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);

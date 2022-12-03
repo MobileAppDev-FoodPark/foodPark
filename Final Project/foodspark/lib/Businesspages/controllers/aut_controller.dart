@@ -7,10 +7,9 @@ import 'package:foodspark/Businesspages/views/home_screen.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
-  final firebaseInstance = FirebaseFirestore.instance;
-
   // ignore: prefer_typing_uninitialized_variables
   var ownerId;
+  String? userID;
 
   Future<void> signUp(email, password, username, address) async {
     try {
@@ -20,22 +19,23 @@ class AuthController extends GetxController {
               email: email.trim(), password: password);
 
       print(userCredential);
-      ownerId = userCredential.user!.uid;
+
       CommanDialog.hideLoading();
 
       try {
         CommanDialog.showLoading();
-        var response =
-            await FirebaseFirestore.instance.collection('owner_list').add({
+        await FirebaseFirestore.instance
+            .collection('owner_list')
+            .doc(userID)
+            .set({
           'user_Id': userCredential.user!.uid,
+          'uid': userID,
           'user_name': username,
           'address': address,
           "password": password,
           'joinDate': DateTime.now().millisecondsSinceEpoch,
           'email': email
         });
-        print("Firebase response1111 ${response.id}");
-        CommanDialog.hideLoading();
         Get.back();
       } catch (exception) {
         CommanDialog.hideLoading();
@@ -70,9 +70,7 @@ class AuthController extends GetxController {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email.trim(), password: password);
 
-      print(userCredential.user!.uid);
-
-      ownerId = userCredential.user!.uid;
+      print(userCredential);
 
       CommanDialog.hideLoading();
 

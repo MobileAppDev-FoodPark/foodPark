@@ -10,8 +10,6 @@ import 'package:get/get.dart';
 class Addstall extends StatefulWidget {
   const Addstall({super.key});
 
-  get ownerId => null;
-
   @override
   State<Addstall> createState() => _AddstallState();
 }
@@ -40,7 +38,7 @@ class _AddstallState extends State<Addstall> {
       Get.snackbar(
         "Opps",
         "Image Required",
-        snackPosition: SnackPosition.BOTTOM,
+        snackPosition: SnackPosition.TOP,
         backgroundColor: Theme.of(context).errorColor,
         colorText: Colors.white,
       );

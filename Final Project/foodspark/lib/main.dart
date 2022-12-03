@@ -2,7 +2,10 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:foodspark/Businesspages/image_retrive.dart';
+import 'package:foodspark/Businesspages/image_upload.dart';
 import 'package:foodspark/Businesspages/views/login_screen.dart';
+import 'package:foodspark/Businesspages/views/sign_up_screen.dart';
 import 'package:foodspark/Businesspages/views/stall_view.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.cyan,
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: SignUpScreen(),
     );
   }
 }
